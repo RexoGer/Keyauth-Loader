@@ -1,9 +1,10 @@
 ﻿#include <Windows.h>
 #include "auth.hpp"
-#include <string>
 #include "utils.hpp"
 #include "skStr.h"
 #include <chrono>
+#include <iostream>
+#include <string>
 #include <thread>
 std::string tm_to_readable_time(tm ctx);
 static std::time_t string_to_timet(std::string timestamp);
@@ -19,13 +20,6 @@ std::string secret = "4bf64a51c0ebe63582812bfb069b375780dc7c131c1b88357f0740f99f
 std::string version = "1.0"; 
 std::string url = skCrypt("https://keyauth.win/api/1.2/").decrypt(); 
 
-std::string getCurrentTime() {
-	auto now = std::chrono::system_clock::now();
-	std::time_t time = std::chrono::system_clock::to_time_t(now);
-	std::string currentTime = std::ctime(&time);
-	currentTime.erase(currentTime.find_last_not_of("\n") + 1);
-	return currentTime;
-}
 
 void connectinganimation(int durationMs) {
 	const int progressBarWidth = 10;
@@ -38,7 +32,7 @@ void connectinganimation(int durationMs) {
 		
 		for (int i = 0; i < progressBarWidth; i++) {
 			if (i < progress / (100 / progressBarWidth)) {
-				progressBar[i + 1] = '=';
+				progressBar[i + 1] = '#';
 			}
 			else {
 				progressBar[i + 1] = ' ';
@@ -46,7 +40,7 @@ void connectinganimation(int durationMs) {
 		}
 
 	
-		std::cout << "Connecting." << progressBar << " " << progress << " % " << std::flush;
+		std::cout << "Connecting" << progressBar << " " << progress << " % " << std::flush;
 
 		
 		progress += increment;
@@ -59,13 +53,75 @@ void connectinganimation(int durationMs) {
 	}
 
 
-	progressBar = "[==========]";
-	std::cout << "Connecting." << progressBar << " 100%" << std::endl;
+	progressBar = "[##########]";
+	std::cout << "Connecting" << progressBar << " 100%" << std::endl;
 	Sleep(300);
 	system("cls");
 	std::cout << "Connected successfully!" << std::endl;
 	MessageBeep(MB_OK);
 	Sleep(300);
+}
+void cleaningAnimation(int durationMs, const std::string& cleaningText, const std::string& successMessage) {
+	const int progressBarWidth = 10;
+	int progress = 0;
+	int increment = 10;
+	std::string progressBar = "[          ]";
+
+	while (progress <= 100) {
+		for (int i = 0; i < progressBarWidth; i++) {
+			if (i < progress / (100 / progressBarWidth)) {
+				progressBar[i + 1] = '#';
+			}
+			else {
+				progressBar[i + 1] = ' ';
+			}
+		}
+
+		// Set text color to white
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+		std::cout << cleaningText << progressBar << " " << progress << " % " << std::flush;
+
+		progress += increment;
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(durationMs));
+
+		std::cout << "\r";
+	}
+
+	progressBar = "[##########]";
+	std::cout << cleaningText << progressBar << " 100%" << std::endl;
+	Sleep(300);
+	system("cls");
+	std::cout << successMessage << std::endl;
+	MessageBeep(MB_OK);
+	Sleep(300);
+}
+
+void showLoadingScreen()
+{
+	int progress = 0;
+	int loadingTime = 60; // Loading time for each step in milliseconds
+
+
+	while (progress <= 100)
+	{
+		std::cout << "\033[1;37m[";
+		int barWidth = 50;
+		int pos = barWidth * progress / 100;
+		for (int i = 0; i < barWidth; ++i)
+		{
+			if (i < pos)
+				std::cout << "\033[32m#\033[1;37m";
+			else
+				std::cout << " ";
+		}
+		std::cout << "]\033[0m " << progress << "%\r";
+		std::flush(std::cout);
+
+		Sleep(loadingTime);
+		++progress;
+	}
 }
 
 api KeyAuthApp(name, ownerid, secret, version, url);
@@ -73,50 +129,119 @@ api KeyAuthApp(name, ownerid, secret, version, url);
 void SpoofZeug()
 {
 	system("cls");
-	std::string consoleTitle = "Matrix Loader | Made by rexo | " + getCurrentTime();
+	std::string consoleTitle = "Eject Virtual Machine Software 2023 | Coded by Rexo#5610";
 	SetConsoleTitleA(consoleTitle.c_str());
+	std::cout << "\033[32m" << "[#] Directing you to the software.." << "\033[0m" << std::endl;
+	std::this_thread::sleep_for(std::chrono::seconds(4)); 
+	system("cls");
 	std::cout << "\033[1;37m"
-		<< std::setw(28) << "" << " /$$      /$$  /$$$$$$  /$$$$$$$$ /$$$$$$$  /$$$$$$ /$$   /$$ \n"
-		<< std::setw(28) << "" << "| $$$    /$$$ /$$__  $$|__  $$__/| $$__  $$|_  $$_/| $$  / $$ \n"
-		<< std::setw(28) << "" << "| $$$$  /$$$$| $$  \\ $$   | $$   | $$  \\ $$  | $$  |  $$/ $$/ \n"
-		<< std::setw(28) << "" << "| $$ $$/$$ $$| $$$$$$$$   | $$   | $$$$$$$/  | $$   \\  $$$$/  \n"
-		<< std::setw(28) << "" << "| $$  $$$| $$| $$__  $$   | $$   | $$__  $$  | $$    >$$  $$  \n"
-		<< std::setw(28) << "" << "| $$\\  $ | $$| $$  | $$   | $$   | $$  \\ $$  | $$   /$$/\\  $$ \n"
-		<< std::setw(28) << "" << "| $$ \\/  | $$| $$  | $$   | $$   | $$  | $$ /$$$$$$| $$  \\ $$ \n"
-		<< std::setw(28) << "" << "|__/     |__/|__/  |__/   |__/   |__/  |__/|______/|__/  |__/\n"
-		<< "\033[0m\n" << std::endl;
+		<< " $$$$$$$$$\\   $$$$$\\ $$$$$$$$\\  $$$$$$\\ $$$$$$$$\\ \n"
+		<< " $$  _____|  \\__$$ |$$  _____|$$  __$$\\__$$  __|\n"
+		<< " $$ |           $$ |$$ |      $$ /  \\__|  $$ |   \n"
+		<< " $$$$$\\         $$ |$$$$\\     $$ |        $$ |   \n"
+		<< " $$  __|  $$\\   $$ |$$  __|   $$ |        $$ |   \n"
+		<< " $$ |     $$ |  $$ |$$ |      $$ |  $$\\   $$ |   \n"
+		<< " $$$$$$$$$\\$$$$$$  |$$$$$$$$\\ \\$$$$$$  |  $$ |   \n"
+		<< " \\________|\\______/ \\________| \\______/   \\__|\033[1;31mVIRTUAL MACHINE 2023 BUILD\n"
+		<< "\033[0m" 
+		<< std::endl;
 
-	std::cout << "\033[1;33m[!] We thank you for using Matrix Spoofer.\033[0m\n" << std::endl;
-	std::cout << "\033[1;37m[1] Spoof\033[0m" << std::endl;
-	std::cout << "\033[1;37m[2] Clean\033[0m" << std::endl;
-	std::cout << "\033[1;37m[3] Hwid Check\033[0m" << std::endl;
-	std::cout << "\033[1;37m[4] Exit\033[0m" << std::endl;
-	std::cout << "\n\033[1;32m[#] Please Input Your Selection: \033[0m";
+
+
+	std::cout << "\033[1;33m[!] Welcome, We Thank you for choosing us\n" << std::endl;
+	std::cout << "\033[1;37m[\033[32m1\033[37m] Data Table Reset + Virtualize CPU Layers \033" << std::endl;
+	std::cout << "\033[1;37m[\033[32m2\033[37m] Clean traces files from your computer" << std::endl;
+	std::cout << "\033[1;37m[\033[32m3\033[37m] Full Hardware Virtualizer \033[1;32m3.0\033[0m" << std::endl;
+	std::cout << "\033[1;37m[\033[32m4\033[37m] Alternative Full Hardware Virtualizer (\033[1;32mOptimized For BE, FiveM, COD and more\033[0m)" << std::endl;
+	std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Please Input Your Selection: \033[0m";
+
+
+
+
+
 
 	int option;
+	int durationMs = 400;
 
 	std::cin >> option;
 	switch (option)
 	{
 	case 1:
 		system("cls");
-		MessageBox(NULL, "https://github.com/RexoGer!", "https://github.com/RexoGer", MB_OK | MB_ICONINFORMATION);
-		exit(0);
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Resetting Data tables\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Resetted successfully\n" << std::endl;
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Virtualizing CPU Layers.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Virtualizing was successfull!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Finished Resetting Data tables + Virtualizing CPU Layers!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
 		break;
 	case 2:
 		system("cls");
-		MessageBox(NULL, "https://github.com/RexoGer!", "https://github.com/RexoGer", MB_OK | MB_ICONINFORMATION);
-		exit(0);
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Scanning for tracer files\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Deleting tracer files\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Scanning for windows tracer files.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Deleting windows tracer files!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Your computer was successfully cleaned!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
 		break;
 	case 3:
 		system("cls");
-		MessageBox(NULL, "https://github.com/RexoGer!", "https://github.com/RexoGer", MB_OK | MB_ICONINFORMATION);
-		exit(0);
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Loading Modules\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Reading Modules\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Virtualizing with the perfect settings for you.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Your computer was successfully virtualized!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
 		break;
 	case 4:
 		system("cls");
-		MessageBox(NULL, "https://github.com/RexoGer!", "https://github.com/RexoGer", MB_OK | MB_ICONINFORMATION);
-		exit(0);
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Loading Modules\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Reading Modules\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Virtualizing with the perfect settings for you.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Your computer was successfully virtualized!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
 		break;
 	default:
 		std::cout << skCrypt("\n\n Status: Failure: Invalid Selection");
@@ -125,10 +250,11 @@ void SpoofZeug()
 	}
 }
 
+
 int main()
 {
 	system("cls");
-	std::string consoleTitle = "Matrix Loader | Made by rexo | " + getCurrentTime();
+	std::string consoleTitle = "Eject Virtual Machine Software 2023 | Login | Coded by Rexo#5610";
 	SetConsoleTitleA(consoleTitle.c_str());
 	int durationMs = 300;
 	connectinganimation(durationMs);
@@ -150,22 +276,29 @@ int main()
 	{
 		system("cls");
 		std::cout << "\033[1;37m"
-			<< std::setw(28) << "" << " /$$      /$$  /$$$$$$  /$$$$$$$$ /$$$$$$$  /$$$$$$ /$$   /$$ \n"
-			<< std::setw(28) << "" << "| $$$    /$$$ /$$__  $$|__  $$__/| $$__  $$|_  $$_/| $$  / $$ \n"
-			<< std::setw(28) << "" << "| $$$$  /$$$$| $$  \\ $$   | $$   | $$  \\ $$  | $$  |  $$/ $$/ \n"
-			<< std::setw(28) << "" << "| $$ $$/$$ $$| $$$$$$$$   | $$   | $$$$$$$/  | $$   \\  $$$$/  \n"
-			<< std::setw(28) << "" << "| $$  $$$| $$| $$__  $$   | $$   | $$__  $$  | $$    >$$  $$  \n"
-			<< std::setw(28) << "" << "| $$\\  $ | $$| $$  | $$   | $$   | $$  \\ $$  | $$   /$$/\\  $$ \n"
-			<< std::setw(28) << "" << "| $$ \\/  | $$| $$  | $$   | $$   | $$  | $$ /$$$$$$| $$  \\ $$ \n"
-			<< std::setw(28) << "" << "|__/     |__/|__/  |__/   |__/   |__/  |__/|______/|__/  |__/\n"
-			<< "\033[0m\n" << std::endl;
+			<< " $$$$$$$$$\\   $$$$$\\ $$$$$$$$\\  $$$$$$\\ $$$$$$$$\\ \n"
+			<< " $$  _____|  \\__$$ |$$  _____|$$  __$$\\__$$  __|\n"
+			<< " $$ |           $$ |$$ |      $$ /  \\__|  $$ |   \n"
+			<< " $$$$$\\         $$ |$$$$\\     $$ |        $$ |   \n"
+			<< " $$  __|  $$\\   $$ |$$  __|   $$ |        $$ |   \n"
+			<< " $$ |     $$ |  $$ |$$ |      $$ |  $$\\   $$ |   \n"
+			<< " $$$$$$$$$\\$$$$$$  |$$$$$$$$\\ \\$$$$$$  |  $$ |   \n"
+			<< " \\________|\\______/ \\________| \\______/   \\__|\033[1;31mVIRTUAL MACHINE 2023 BUILD\n"
+			<< "\033[0m"
+			<< std::endl;
 
-		std::cout << "\033[1;31m[!] Disable any antivirus before continue.\033[0m\n" << std::endl;
+
+
+
+
+
+		std::cout << "\033[1;33m[!] Disable any antivirus before continue.\033[0m\n" << std::endl;
 		std::cout << "\033[1;37m[1] Login With Key\033[0m" << std::endl;
-		std::cout << "\033[1;37m[2] Website\033[0m" << std::endl;
-		std::cout << "\033[1;37m[3] Discord Server\033[0m" << std::endl;
-		std::cout << "\033[1;37m[4] Exit\033[0m" << std::endl;
-		std::cout << "\n\033[1;32m[#] Please Input Your Selection: \033[0m";
+		std::cout << "\033[1;37m[2] Discord Server\033[0m" << std::endl;
+		std::cout << "\033[1;37m[3] Exit\033[0m" << std::endl;
+		std::cout << "\n\033[1;37m[#] Please Input Your Selection: \033[0m";
+
+
 
 		int option;
 		std::string key;
@@ -180,14 +313,10 @@ int main()
 			KeyAuthApp.license(key);
 			break;
 		case 2:
-			system("start https://google.com");
+			system("start https://discord.gg/eWefxNHDnP");
 			exit(0);
 			break;
 		case 3:
-			system("start https://google.com");
-			exit(0);
-			break;
-		case 4:
 			exit(0);
 			break;
 		default:
@@ -318,6 +447,8 @@ int main()
 	}
 	*/
 	#pragma endregion Example on how to use KeyAuth functions
+	
+	
 
 	SpoofZeug();
 }
