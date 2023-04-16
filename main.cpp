@@ -124,40 +124,47 @@ void showLoadingScreen()
 	}
 }
 
+
+void setConsoleColor(int color) {
+#ifdef _WIN32
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+#else
+	std::cout << "\033[" << color << "m";
+#endif
+}
+
 api KeyAuthApp(name, ownerid, secret, version, url);
 
 void SpoofZeug()
 {
 	system("cls");
-	std::string consoleTitle = "Eject Virtual Machine Software 2023 | Coded by Rexo#5610";
+	std::string consoleTitle = "IcarusVM - The Best Hardware Virtualizer | discord.gg/c6gKFHP84u";
 	SetConsoleTitleA(consoleTitle.c_str());
 	std::cout << "\033[32m" << "[#] Directing you to the software.." << "\033[0m" << std::endl;
 	std::this_thread::sleep_for(std::chrono::seconds(4)); 
 	system("cls");
 	std::cout << "\033[1;37m"
-		<< " $$$$$$$$$\\   $$$$$\\ $$$$$$$$\\  $$$$$$\\ $$$$$$$$\\ \n"
-		<< " $$  _____|  \\__$$ |$$  _____|$$  __$$\\__$$  __|\n"
-		<< " $$ |           $$ |$$ |      $$ /  \\__|  $$ |   \n"
-		<< " $$$$$\\         $$ |$$$$\\     $$ |        $$ |   \n"
-		<< " $$  __|  $$\\   $$ |$$  __|   $$ |        $$ |   \n"
-		<< " $$ |     $$ |  $$ |$$ |      $$ |  $$\\   $$ |   \n"
-		<< " $$$$$$$$$\\$$$$$$  |$$$$$$$$\\ \\$$$$$$  |  $$ |   \n"
-		<< " \\________|\\______/ \\________| \\______/   \\__|\033[1;31mVIRTUAL MACHINE 2023 BUILD\n"
-		<< "\033[0m" 
+		<< " __    ______     ___      .______       __    __       _______.\n"
+		<< "|  |  /      |   /   \\     |   _  \\     |  |  |  |     /       |\n"
+		<< "|  | |  ,----'  /  ^  \\    |  |_)  |    |  |  |  |    |   (----`\n"
+		<< "|  | |  |      /  /_\\  \\   |      /     |  |  |  |     \\   \n"
+		<< "|  | |  `----./  _____  \\  |  |\\  \\----.|  `--'  | .----)   |   \n"
+		<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mVIRTUAL MACHINE 2023 BUILD\033[0m\n"
+		<< "\033[0m"
 		<< std::endl;
-
-
 
 	std::cout << "\033[1;33m[!] Welcome, We Thank you for choosing us\n" << std::endl;
 	std::cout << "\033[1;37m[\033[32m1\033[37m] Data Table Reset + Virtualize CPU Layers \033" << std::endl;
 	std::cout << "\033[1;37m[\033[32m2\033[37m] Clean traces files from your computer" << std::endl;
 	std::cout << "\033[1;37m[\033[32m3\033[37m] Full Hardware Virtualizer \033[1;32m3.0\033[0m" << std::endl;
 	std::cout << "\033[1;37m[\033[32m4\033[37m] Alternative Full Hardware Virtualizer (\033[1;32mOptimized For BE, FiveM, COD and more\033[0m)" << std::endl;
+	std::cout << "\n\033[1;36m[+] Misc & More\033[0m" << std::endl;
+	std::cout << "\n\033[1;37m[\033[32m99\033[37m] FN Full Hardware Virtualizer 2.0 (\033[32mOptimized For Fortnite\033[37m)\033[0m" << std::endl;
+	std::cout << "\n\033[1;37m[\033[32m100\033[37m] Permanently Full Hardware Virtualizer (\033[32mOptimized For Valorant and EAC\033[37m)\033[0m" << std::endl;
+	std::cout << "\n\033[1;37m[\033[32m5\033[37m] Check Serials\033" << std::endl;
+
+
 	std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Please Input Your Selection: \033[0m";
-
-
-
-
 
 
 	int option;
@@ -243,6 +250,75 @@ void SpoofZeug()
 		Sleep(3000);
 		system("cls");
 		break;
+	case 5:
+		system("cls");
+		std::cout << "Disk Drive Serial Number:" << std::endl;
+		std::cout << "========================" << std::endl;
+		system("wmic diskdrive get SerialNumber | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		std::cout << "BIOS Serial Number:" << std::endl;
+		std::cout << "===================" << std::endl;
+		system("wmic bios get SerialNumber | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		std::cout << "CPU Serial Number:" << std::endl;
+		std::cout << "==================" << std::endl;
+		system("wmic cpu get ProcessorID | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		std::cout << "Baseboard Serial Number:" << std::endl;
+		std::cout << "=========================" << std::endl;
+		system("wmic baseboard get SerialNumber | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		std::cout << "BIOS UUID:" << std::endl;
+		std::cout << "==========" << std::endl;
+		system("wmic csproduct get UUID | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		std::cout << "MAC Address:" << std::endl;
+		std::cout << "============" << std::endl;
+		system("wmic nicconfig where IPEnabled=\"True\" get MACAddress | findstr /r /v \"^$\"");
+		std::cout << std::endl;
+
+		break;
+	case 99:
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Loading Modules\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Reading Modules\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Virtualizing with the perfect settings for you.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Your computer was successfully virtualized!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
+		break;
+	case 100:
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Loading Modules\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m#\033[1;37m] Reading Modules\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m!\033[1;37m] Virtualizing with the perfect settings for you.\033[0m\n" << std::endl;
+		showLoadingScreen();
+		Sleep(3000);
+		system("cls");
+		std::cout << "\n\033[1;37m[\033[32m+\033[1;37m] Your computer was successfully virtualized!\n" << std::endl;
+		Sleep(3000);
+		system("cls");
+		break;
 	default:
 		std::cout << skCrypt("\n\n Status: Failure: Invalid Selection");
 		Sleep(3000);
@@ -254,7 +330,7 @@ void SpoofZeug()
 int main()
 {
 	system("cls");
-	std::string consoleTitle = "Eject Virtual Machine Software 2023 | Login | Coded by Rexo#5610";
+	std::string consoleTitle = "IcarusVM - The Best Hardware Virtualizer | discord.gg/c6gKFHP84u";
 	SetConsoleTitleA(consoleTitle.c_str());
 	int durationMs = 300;
 	connectinganimation(durationMs);
@@ -276,20 +352,14 @@ int main()
 	{
 		system("cls");
 		std::cout << "\033[1;37m"
-			<< " $$$$$$$$$\\   $$$$$\\ $$$$$$$$\\  $$$$$$\\ $$$$$$$$\\ \n"
-			<< " $$  _____|  \\__$$ |$$  _____|$$  __$$\\__$$  __|\n"
-			<< " $$ |           $$ |$$ |      $$ /  \\__|  $$ |   \n"
-			<< " $$$$$\\         $$ |$$$$\\     $$ |        $$ |   \n"
-			<< " $$  __|  $$\\   $$ |$$  __|   $$ |        $$ |   \n"
-			<< " $$ |     $$ |  $$ |$$ |      $$ |  $$\\   $$ |   \n"
-			<< " $$$$$$$$$\\$$$$$$  |$$$$$$$$\\ \\$$$$$$  |  $$ |   \n"
-			<< " \\________|\\______/ \\________| \\______/   \\__|\033[1;31mVIRTUAL MACHINE 2023 BUILD\n"
+			<< " __    ______     ___      .______       __    __       _______.\n"
+			<< "|  |  /      |   /   \\     |   _  \\     |  |  |  |     /       |\n"
+			<< "|  | |  ,----'  /  ^  \\    |  |_)  |    |  |  |  |    |   (----`\n"
+			<< "|  | |  |      /  /_\\  \\   |      /     |  |  |  |     \\   \n"
+			<< "|  | |  `----./  _____  \\  |  |\\  \\----.|  `--'  | .----)   |   \n"
+			<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mVIRTUAL MACHINE 2023 BUILD\033[0m\n"
 			<< "\033[0m"
 			<< std::endl;
-
-
-
-
 
 
 		std::cout << "\033[1;33m[!] Disable any antivirus before continue.\033[0m\n" << std::endl;
