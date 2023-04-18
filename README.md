@@ -1,6 +1,6 @@
 # Simple Keyauth loader 
 
-A Very nice and simple keyauth loader that has nice visuals to start with a base
+A Very nice and simple keyauth loader that has nice visuals to start as a base
 
 ## Description
 
