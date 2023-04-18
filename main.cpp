@@ -14,10 +14,10 @@ const std::string compilation_time = (std::string)skCrypt(__TIME__);
 
 using namespace KeyAuth;
 
-std::string name = "Cheatv2"; 
-std::string ownerid = "9lCOXVsBK8";
-std::string secret = "4bf64a51c0ebe63582812bfb069b375780dc7c131c1b88357f0740f99f6639e3"; 
-std::string version = "1.0"; 
+std::string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
+std::string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
+std::string secret = ""; // app secret, the blurred text on licenses tab and other tabs
+std::string version = "1.0"; // leave alone unless you've changed version on website
 std::string url = skCrypt("https://keyauth.win/api/1.2/").decrypt(); 
 
 
@@ -138,7 +138,7 @@ api KeyAuthApp(name, ownerid, secret, version, url);
 void SpoofZeug()
 {
 	system("cls");
-	std::string consoleTitle = "IcarusVM - The Best Hardware Virtualizer | discord.gg/c6gKFHP84u";
+	std::string consoleTitle = "Made by rexo | github.com/RexoGer/Keyauth-Loader ";
 	SetConsoleTitleA(consoleTitle.c_str());
 	std::cout << "\033[32m" << "[#] Directing you to the software.." << "\033[0m" << std::endl;
 	std::this_thread::sleep_for(std::chrono::seconds(4)); 
@@ -149,10 +149,10 @@ void SpoofZeug()
 		<< "|  | |  ,----'  /  ^  \\    |  |_)  |    |  |  |  |    |   (----`\n"
 		<< "|  | |  |      /  /_\\  \\   |      /     |  |  |  |     \\   \n"
 		<< "|  | |  `----./  _____  \\  |  |\\  \\----.|  `--'  | .----)   |   \n"
-		<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mVIRTUAL MACHINE 2023 BUILD\033[0m\n"
+		<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mgithub.com/RexoGer/Keyauth-Loader \033[0m\n"
 		<< "\033[0m"
 		<< std::endl;
-
+		
 	std::cout << "\033[1;33m[!] Welcome, We Thank you for choosing us\n" << std::endl;
 	std::cout << "\033[1;37m[\033[32m1\033[37m] Data Table Reset + Virtualize CPU Layers \033" << std::endl;
 	std::cout << "\033[1;37m[\033[32m2\033[37m] Clean traces files from your computer" << std::endl;
@@ -330,10 +330,9 @@ void SpoofZeug()
 int main()
 {
 	system("cls");
-	std::string consoleTitle = "IcarusVM - The Best Hardware Virtualizer | discord.gg/c6gKFHP84u";
+	std::string consoleTitle = "Made by rexo | github.com/RexoGer/Keyauth-Loader ";
 	SetConsoleTitleA(consoleTitle.c_str());
 	int durationMs = 300;
-	connectinganimation(durationMs);
 
 
 	KeyAuthApp.init();
@@ -350,6 +349,7 @@ int main()
 	
 	else
 	{
+		connectinganimation(durationMs);
 		system("cls");
 		std::cout << "\033[1;37m"
 			<< " __    ______     ___      .______       __    __       _______.\n"
@@ -357,7 +357,7 @@ int main()
 			<< "|  | |  ,----'  /  ^  \\    |  |_)  |    |  |  |  |    |   (----`\n"
 			<< "|  | |  |      /  /_\\  \\   |      /     |  |  |  |     \\   \n"
 			<< "|  | |  `----./  _____  \\  |  |\\  \\----.|  `--'  | .----)   |   \n"
-			<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mVIRTUAL MACHINE 2023 BUILD\033[0m\n"
+			<< "|__|  \\______/__/     \\__\\ | _| `._____| \\______/  |_______/ \033[1;31mgithub.com/RexoGer/Keyauth-Loader \033[0m\n"
 			<< "\033[0m"
 			<< std::endl;
 
@@ -383,7 +383,7 @@ int main()
 			KeyAuthApp.license(key);
 			break;
 		case 2:
-			system("start https://discord.gg/eWefxNHDnP");
+			system("start https://pornhub.com");
 			exit(0);
 			break;
 		case 3:
